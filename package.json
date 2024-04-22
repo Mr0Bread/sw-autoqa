@@ -1,0 +1,49 @@
+{
+  "name": "autoqa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@wdio/cli": "^6.10.5",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.8.0",
+    "gulp-cli": "^2.3.0",
+    "mochawesome": "^6.2.1",
+    "scss-compile": "^0.1.7"
+  },
+  "scripts": {
+    "start": "npx codeceptjs run --reporter mochawesome",
+    "compile": "node-sass -rw server/public/assets/scss -o server/public/assets/",
+    "codeceptjs": "codeceptjs run --steps",
+    "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",
+    "codeceptjs:ui": "codecept-ui --app",
+    "codeceptjs:demo": "codeceptjs run --steps -c node_modules/@codeceptjs/examples/codecept.webdriver.conf.js",
+    "codeceptjs:demo:headless": "HEADLESS=true codeceptjs run --steps -c node_modules/@codeceptjs/examples/codecept.webdriver.conf.js",
+    "codeceptjs:demo:ui": "codecept-ui --app  -c node_modules/@codeceptjs/examples/codecept.webdriver.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olegsjakovlevs/AutoQA.git"
+  },
+  "author": "Olegs Jakovlevs",
+  "license": "ISC",
+  "devDependencies": {
+    "@codeceptjs/configure": "^0.6.2",
+    "@codeceptjs/examples": "^1.2.1",
+    "@codeceptjs/ui": "^0.4.2",
+    "codeceptjs": "^3.0.2",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "gulp-util": "^3.0.8",
+    "node-sass": "^5.0.0",
+    "webdriverio": "^6.10.5"
+  },
+  "bugs": {
+    "url": "https://github.com/olegsjakovlevs/AutoQA/issues"
+  },
+  "homepage": "https://github.com/olegsjakovlevs/AutoQA#readme",
+  "keywords": [],
+  "description": ""
+}

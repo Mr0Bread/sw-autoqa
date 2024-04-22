@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Scandiweb Testing Tool</title>
+    <link rel="stylesheet" href="assets/main.css">
+    <script>
+      function showLoader(){
+        let loader = document.getElementById("loader-holder");
+        let error = document.getElementById("error-holder");
+
+        loader.style.display = "block";
+
+        if (!validateForm()){
+          loader.style.display = "none";
+          error.style.display = "block";
+
+          setTimeout(function () {
+            error.style.display = "none";
+          }, 3000);
+
+          return false;
+        }
+      }
+
+      function validateForm(){
+        let urlToCheck = document.forms["url-form"]["linkToTest"].value;
+
+        let pattern = new RegExp('^((http|https)?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+
+        //console.log(pattern.test(urlToCheck));
+        return pattern.test(urlToCheck);
+      }
+
+      document.getElementById("special-form").addEventListener("click", function(event){
+          event.preventDefault();
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="header">
+    </div>
+    <div id="content">
+      <div class="website-form-holder">
+        <div class="website-form">
+          <div class="info">
+            <h1 class="title" title="server">I'm tester bot, please enter the URL to test!</h1>
+          </div>
+          <div id="loader-holder">
+            <div id="loader"></div>
+            <p>Loading, can take up to 10 seconds...</p>
+          </div>
+          <div id="error-holder">
+            <svg>
+              <path d="M 10,10 l 90,90 M 100,10 l -90,90" stroke="red" stroke-width="10" />
+            </svg>
+            <p>Incorrect URL provided!</p>
+          </div>
+          <form id="special-form" name="url-form" method="post" action="/submit-form" onsubmit="return showLoader()">
+            <p>Test type:</p>
+            <select name="testType" disabled>
+              <option value="JuniorWeb" selected="selected">Web Developer</option>
+            </select>
+
+            <p>URL to Test:</p>
+            <input type="text" name="linkToTest" required/>
+            <input type="submit" value="Send for QA"/>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer">
+    </div>
+  </body>
+</html>
