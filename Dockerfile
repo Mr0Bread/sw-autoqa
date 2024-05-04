@@ -1,7 +1,7 @@
-FROM node:12.20
+FROM node:20.12.2-alpine3.19
 
 # Set bash by default
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+SHELL ["/bin/sh", "-o", "pipefail", "-c"]
 
 # Create directory for application
 WORKDIR /usr/src/app

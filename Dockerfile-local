@@ -1,0 +1,12 @@
+FROM node:20.12.2-alpine3.19
+
+# Set bash by default
+SHELL ["/bin/sh", "-o", "pipefail", "-c"]
+
+# Create directory for application
+WORKDIR /usr/src/app
+
+VOLUME /usr/src/app
+
+# Run within container
+CMD [ "tail", "-f", "/dev/null" ]

@@ -29,8 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('html', require('ejs').renderFile);
 
 app.post('/submit-form', function (req, res) {
-  //testType = req.body.testType;
-  testType = "JuniorWeb";
+  testType = req.body.testType;
   testURL = req.body.linkToTest;
 
   if (!/^https?:\/\//.test(testURL)) testURL = 'http://'+testURL;
@@ -40,12 +39,16 @@ app.post('/submit-form', function (req, res) {
 
   // Run codecept test
   try {
-    execSync(`npx codeceptjs run --config ${__dirname}/../codecept.conf.js --override '{ "tests": "${__dirname}/public/tests/${testType}/*_test.js", "helpers": {"WebDriver": {"url": "${testURL}" }}, "mocha": { "reporterOptions": { "reportFilename": "${reportName}" }}}' --reporter mochawesome`);
+    const command = `npx codeceptjs run --config ${__dirname}/../codecept.conf.js --override '{ "tests": "${__dirname}/public/tests/${testType}/*_test.js", "helpers": {"WebDriver": {"url": "${testURL}" }}, "mocha": { "reporterOptions": { "reportFilename": "${reportName}" }}}' --reporter mochawesome`;
+    console.log(command);
+    const buffer = execSync(command);
+
+    console.log(buffer.toString());
   }
   catch(e){
     //console.log(e);
   }
-  
+
   //console.log(`npx codeceptjs run --config ${__dirname}/../codecept.conf.js --override '{ "tests": "${__dirname}/public/tests/${testType}/*_test.js", "helpers": {"WebDriver": {"url": "${testURL}" }}, "mocha": { "reporterOptions": { "reportFilename": "${reportName}" }}}' --reporter mochawesome`);
 
   // Redirect to report
