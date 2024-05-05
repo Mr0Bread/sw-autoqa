@@ -17,10 +17,10 @@ app-install:
 	docker exec -it autoqa-app-1 npm install
 
 example-install:
-	docker exec -it autoqa-example-1 npm install
+	docker exec -it autoqa-fs-example-1 npm install
 
 app-watch:
 	docker exec -it autoqa-app-1 npm run watch
 
 example-watch:
-	docker exec -it autoqa-example-1 npm run dev
+	docker exec -it autoqa-fs-example-1 npm run dev
