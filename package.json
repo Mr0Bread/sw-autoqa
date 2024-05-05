@@ -1,7 +1,6 @@
 {
   "name": "autoqa",
   "version": "1.0.0",
-  "main": "index.js",
   "dependencies": {
     "@wdio/cli": "^8.36.1",
     "body-parser": "^1.20.2",
@@ -12,6 +11,7 @@
     "selenium-webdriver": "^4.19.0"
   },
   "scripts": {
+    "watch": "nodemon server/server.js",
     "start": "npx codeceptjs run --reporter mochawesome",
     "codeceptjs": "codeceptjs run --steps",
     "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",
@@ -32,6 +32,7 @@
     "@codeceptjs/ui": "^1.1.1",
     "codeceptjs": "3.5.14",
     "del": "^7.1.0",
+    "nodemon": "^3.1.0",
     "webdriverio": "^8.36.1"
   },
   "bugs": {

@@ -12,16 +12,16 @@
 
         loader.style.display = "block";
 
-        if (!validateForm()){
-          loader.style.display = "none";
-          error.style.display = "block";
-
-          setTimeout(function () {
-            error.style.display = "none";
-          }, 3000);
-
-          return false;
-        }
+        // if (!validateForm()){
+        //   loader.style.display = "none";
+        //   error.style.display = "block";
+        //
+        //   setTimeout(function () {
+        //     error.style.display = "none";
+        //   }, 3000);
+        //
+        //   return false;
+        // }
       }
 
       function validateForm(){
@@ -66,8 +66,8 @@
           <form id="special-form" name="url-form" method="post" action="/submit-form" onsubmit="return showLoader()">
             <p>Test type:</p>
             <select name="testType">
-              <option value="JuniorWeb" selected="selected">Web Developer</option>
-              <option value="FullStack">Full-Stack Developer</option>
+              <option value="JuniorWeb">Web Developer</option>
+              <option value="FullStack" selected>Full-Stack Developer</option>
             </select>
 
             <p>URL to Test:</p>

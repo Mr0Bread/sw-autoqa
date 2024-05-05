@@ -1,6 +1,8 @@
-const { execSync } = require("child_process");
-const path = require('path');
+const { execSync } = require('child_process');
+const path = require('node:path');
 const express = require('express');
+const { renderFile } = require('ejs');
+
 const app = express();
 
 const PORT = 8080;
@@ -26,27 +28,27 @@ process.on('SIGTERM', (err, origin) => {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.engine('html', require('ejs').renderFile);
+app.use(express.json());
+app.engine('html', renderFile);
 
 app.post('/submit-form', function (req, res) {
-  testType = req.body.testType;
-  testURL = req.body.linkToTest;
+  const testType = req.body.testType;
+  let testURL = req.body.linkToTest;
 
   if (!/^https?:\/\//.test(testURL)) testURL = 'http://'+testURL;
 
   // Generate report name
-  reportName = (makeFileName(2));
+  const reportName = (makeFileName(2));
 
   // Run codecept test
   try {
     const command = `npx codeceptjs run --config ${__dirname}/../codecept.conf.js --override '{ "tests": "${__dirname}/public/tests/${testType}/*_test.js", "helpers": {"WebDriver": {"url": "${testURL}" }}, "mocha": { "reporterOptions": { "reportFilename": "${reportName}" }}}' --reporter mochawesome`;
-    console.log(command);
-    const buffer = execSync(command);
-
-    console.log(buffer.toString());
+    execSync(command);
   }
   catch(e){
-    //console.log(e);
+    res.json({ error: e });
+
+    return;
   }
 
   //console.log(`npx codeceptjs run --config ${__dirname}/../codecept.conf.js --override '{ "tests": "${__dirname}/public/tests/${testType}/*_test.js", "helpers": {"WebDriver": {"url": "${testURL}" }}, "mocha": { "reporterOptions": { "reportFilename": "${reportName}" }}}' --reporter mochawesome`);

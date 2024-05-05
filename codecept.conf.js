@@ -31,7 +31,7 @@ exports.config = {
       enabled: false
     },
     screenshotOnFail: {
-      enabled: false
+      enabled: true
     }
   }
 }

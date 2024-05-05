@@ -10,8 +10,17 @@ force-build:
 build:
 	docker-compose build
 
-shell:
+app-shell:
 	docker exec -it autoqa-app-1 sh
 
-make install:
-	docker exec -it autoqa-app-1 npm ci
+app-install:
+	docker exec -it autoqa-app-1 npm install
+
+example-install:
+	docker exec -it autoqa-example-1 npm install
+
+app-watch:
+	docker exec -it autoqa-app-1 npm run watch
+
+example-watch:
+	docker exec -it autoqa-example-1 npm run dev
