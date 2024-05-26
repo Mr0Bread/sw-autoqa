@@ -1,16 +1,5 @@
 version: "3"
 services:
-  fs-example:
-    build:
-      context: fs-example
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    networks:
-      - default
-    volumes:
-      - ./fs-example:/usr/src/app
-
   app:
     build:
       context: .
