@@ -43,6 +43,7 @@ app.post('/submit-form', function (req, res) {
   // Run codecept test
   try {
     const command = `npx codeceptjs run --config ${__dirname}/../codecept.conf.js --override '{ "tests": "${__dirname}/public/tests/${testType}/*_test.js", "helpers": {"WebDriver": {"url": "${testURL}" }}, "mocha": { "reporterOptions": { "reportFilename": "${reportName}" }}}' --reporter mochawesome`;
+
     execSync(command);
   }
   catch(e){

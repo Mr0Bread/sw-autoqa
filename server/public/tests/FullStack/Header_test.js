@@ -1,32 +1,16 @@
-// function TestHomepage(){
-//     Scenario('Check homepage basic requirements ', ({ I }) => {
-//         I.amOnPage('/');
-//         I.click('MASS DELETE');
-//         I.click('ADD');
-//     });
-// }
-//
-// function TestAddProductPage(){
-//     Scenario("Check product page basic requirements", ({ I }) => {
-//         I.amOnPage('/');
-//         I.click('ADD');
-//         I.seeElement('#product_form');
-//         I.seeElement('#sku');
-//         I.seeElement('#name');
-//         I.seeElement('#price');
-//         I.seeElement('#productType');
-//     });
-// }
-
 function TestCategoryLinks() {
     Scenario('Check category links', ({ I }) => {
         I.amOnPage('/');
 
+        I.waitForElement('a[href="/all"]', 10);
+        I.waitForElement('a[href="/clothes"]', 10);
+        I.waitForElement('a[href="/tech"]', 10);
 
+        I.waitForElement('[data-testid="active-category-link"]', 10);
 
-        I.waitForElement('a[href="/all"]', 2);
-        I.waitForElement('a[href="/clothes"]', 2);
-        I.waitForElement('a[href="/tech"]', 2);
+        I.click('a[href="/clothes"]');
+
+        I.waitForElement('a[href="/clothes"][data-testid="active-category-link"]', 10);
     });
 }
 
@@ -41,6 +25,10 @@ function TestCartButton() {
 
         I.waitForElement('[data-testid="cart-overlay"]', 10);
         I.seeElement('[data-testid="cart-overlay"]');
+
+        I.click('[data-testid="cart-btn"]');
+
+        I.dontSeeElement('[data-testid="cart-overlay"]');
     });
 }
 
