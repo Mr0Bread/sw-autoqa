@@ -24,3 +24,6 @@ app-watch:
 
 example-watch:
 	docker exec -it autoqa-fs-example-1 npm run dev
+
+recreate:
+	docker stop `docker ps -aq` && docker system prune --all --volumes --force && docker-compose up -d --force-recreate
