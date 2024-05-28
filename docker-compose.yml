@@ -16,7 +16,7 @@ services:
       context: .
       dockerfile: Dockerfile-local
     ports:
-      - "8080:8080"
+      - "80:8080"
     volumes:
     - ./:/usr/src/app/
     networks:
