@@ -7,3 +7,5 @@
 server/public/output
 
 fs-example
+
+server/var/log
