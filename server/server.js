@@ -2,11 +2,22 @@ const { execSync } = require('child_process');
 const path = require('node:path');
 const express = require('express');
 const { renderFile } = require('ejs');
+const fsp = require('fs').promises;
 
 const app = express();
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
+
+async function log(message){
+  const logDir = `${__dirname}/var/log`;
+  // create log dir if not exists
+  await fsp.mkdir(logDir, { recursive: true });
+
+  const logFile = `${__dirname}/var/log/log.txt`;
+  // log to file
+  await fsp.appendFile(logFile, `[${new Date().toISOString()}]: ${message}\n`);
+}
 
 function makeFileName(length) {
   let result           = '';
@@ -46,8 +57,10 @@ app.post('/submit-form', function (req, res) {
 
     execSync(command);
   }
+
   catch(e){
-    res.json({ error: e });
+    void log(e);
+    res.redirect('/error');
 
     return;
   }
@@ -61,6 +74,10 @@ app.post('/submit-form', function (req, res) {
 app.get('/open', function(req, res){
   let file = `${__dirname}/public/output/${req.query.testName}.html`;
   res.render(file);
+});
+
+app.get('/error', function(req, res){
+  res.render(`${__dirname}/public/error.html`);
 });
 
 console.log(`Server is running: ${HOST}:${PORT}`);
