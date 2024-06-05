@@ -59,6 +59,7 @@ app.post('/submit-form', function (req, res) {
   }
 
   catch(e){
+    console.log(e);
     void log(e);
     res.redirect('/error');
 
