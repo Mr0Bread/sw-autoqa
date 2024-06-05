@@ -59,14 +59,11 @@ app.post('/submit-form', function (req, res) {
   }
 
   catch(e){
+    // We log errors but we also get exception
+    // in case of tests failure
     console.log(e);
     void log(e);
-    res.redirect('/error');
-
-    return;
   }
-
-  //console.log(`npx codeceptjs run --config ${__dirname}/../codecept.conf.js --override '{ "tests": "${__dirname}/public/tests/${testType}/*_test.js", "helpers": {"WebDriver": {"url": "${testURL}" }}, "mocha": { "reporterOptions": { "reportFilename": "${reportName}" }}}' --reporter mochawesome`);
 
   // Redirect to report
   res.redirect(`/open?testName=${reportName}`);
@@ -75,10 +72,6 @@ app.post('/submit-form', function (req, res) {
 app.get('/open', function(req, res){
   let file = `${__dirname}/public/output/${req.query.testName}.html`;
   res.render(file);
-});
-
-app.get('/error', function(req, res){
-  res.render(`${__dirname}/public/error.html`);
 });
 
 console.log(`Server is running: ${HOST}:${PORT}`);
