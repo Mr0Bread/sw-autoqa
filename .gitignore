@@ -9,3 +9,9 @@ server/public/output
 fs-example
 
 server/var/log
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/reports
+/var

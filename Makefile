@@ -1,29 +1,29 @@
 up:
-	docker-compose up -d
+	docker-compose -f docker-compose.dev.yml up -d
+
+prod-up:
+	docker-compose -f docker-compose.prod.yml up -d
 
 down:
-	docker-compose down --remove-orphans
+	docker-compose -f docker-compose.base.yml down --remove-orphans
 
 force-build:
-	docker-compose build --no-cache
+	docker-compose -f docker-compose.base.yml build --no-cache
 
 build:
-	docker-compose build
+	docker-compose -f docker-compose.base.yml build
 
 app-shell:
 	docker exec -it autoqa-app-1 sh
 
 app-install:
+	make app-install-npm && make app-install-playwright && make app-install-playwright-deps
+
+app-install-npm:
 	docker exec -it autoqa-app-1 npm install
 
-example-install:
-	docker exec -it autoqa-fs-example-1 npm install
+app-install-playwright:
+	docker exec -it autoqa-app-1 npx playwright install
 
-app-watch:
-	docker exec -it autoqa-app-1 npm run watch
-
-example-watch:
-	docker exec -it autoqa-fs-example-1 npm run dev
-
-recreate:
-	docker stop `docker ps -aq` && docker system prune --all --volumes --force && docker-compose up -d --force-recreate
+app-install-playwright-deps:
+	docker exec -it autoqa-app-1 npx playwright install-deps

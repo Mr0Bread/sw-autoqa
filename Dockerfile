@@ -1,23 +1,19 @@
-FROM node:20.12.2-alpine3.19
-
-# Set bash by default
-SHELL ["/bin/sh", "-o", "pipefail", "-c"]
+FROM node:20.16.0
 
 # Create directory for application
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+VOLUME /usr/src/app
+
 COPY package.json ./
+COPY package-lock.json ./
 
-# Clear npm cache
-RUN npm cache clean --force
-
-# Install packages
 RUN npm install
+RUN npx playwright install
+RUN npx playwright install-deps
 
-# Copy local server to container
-COPY ./codecept.conf.js ./
-COPY ./server/ ./server/
+COPY ./entrypoint.sh ./
 
-# Run within container
-CMD [ "node", "./server/server.js" ]
+RUN ["chmod", "+x", "/usr/src/app/entrypoint.sh"]
+
+CMD ["/usr/src/app/entrypoint.sh"]

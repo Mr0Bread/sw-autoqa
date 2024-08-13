@@ -1,44 +1,53 @@
 {
-  "name": "autoqa",
-  "version": "1.0.0",
-  "dependencies": {
-    "@wdio/cli": "8.36.1",
-    "body-parser": "1.20.2",
-    "ejs": "3.1.10",
-    "express": "4.19.2",
-    "express-validator": "7.0.1",
-    "mochawesome": "7.1.3",
-    "selenium-webdriver": "4.19.0"
-  },
-  "scripts": {
-    "watch": "nodemon server/server.js",
-    "start": "npx codeceptjs run --reporter mochawesome",
-    "codeceptjs": "codeceptjs run --steps",
-    "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",
-    "codeceptjs:ui": "codecept-ui --app",
-    "codeceptjs:demo": "codeceptjs run --steps -c node_modules/@codeceptjs/examples/codecept.webdriver.conf.js",
-    "codeceptjs:demo:headless": "HEADLESS=true codeceptjs run --steps -c node_modules/@codeceptjs/examples/codecept.webdriver.conf.js",
-    "codeceptjs:demo:ui": "codecept-ui --app  -c node_modules/@codeceptjs/examples/codecept.webdriver.conf.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/olegsjakovlevs/AutoQA.git"
-  },
-  "author": "Olegs Jakovlevs",
-  "license": "ISC",
-  "devDependencies": {
-    "@codeceptjs/configure": "1.0.1",
-    "@codeceptjs/examples": "1.2.4",
-    "@codeceptjs/ui": "1.1.1",
-    "codeceptjs": "3.5.14",
-    "del": "7.1.0",
-    "nodemon": "3.1.0",
-    "webdriverio": "8.36.1"
-  },
-  "bugs": {
-    "url": "https://github.com/olegsjakovlevs/AutoQA/issues"
-  },
-  "homepage": "https://github.com/olegsjakovlevs/AutoQA#readme",
-  "keywords": [],
-  "description": ""
+	"name": "autoqa",
+	"version": "1.0.0",
+	"type": "module",
+	"dependencies": {
+		"@fastify/static": "^7.0.4",
+		"@fastify/type-provider-json-schema-to-ts": "^3.0.0",
+		"@hono/node-server": "^1.12.0",
+		"@wdio/cli": "8.36.1",
+		"body-parser": "1.20.2",
+		"ejs": "3.1.10",
+		"express": "4.19.2",
+		"express-validator": "7.0.1",
+		"fastify": "^4.28.1",
+		"hono": "^4.5.4",
+		"mochawesome": "7.1.3",
+		"piscina": "^4.6.1"
+	},
+	"scripts": {
+		"start": "tsx server/server.ts",
+		"watch": "tsx watch server/server.ts",
+		"lint": "biome check",
+		"lint:fix": "biome format --write",
+		"tailwind:watch": "npx tailwindcss -i ./server/public/assets/main.css -o ./server/public/assets/output.css --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/olegsjakovlevs/AutoQA.git"
+	},
+	"author": "Olegs Jakovlevs",
+	"license": "ISC",
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"@playwright/test": "^1.45.3",
+		"@types/node": "^22.1.0",
+		"del": "7.1.0",
+		"nodemon": "3.1.0",
+		"tailwindcss": "^3.4.9",
+		"tsx": "^4.17.0",
+		"typescript": "^5.5.4"
+	},
+	"bugs": {
+		"url": "https://github.com/olegsjakovlevs/AutoQA/issues"
+	},
+	"homepage": "https://github.com/olegsjakovlevs/AutoQA#readme",
+	"keywords": [],
+	"description": "",
+	"nodemonConfig": {
+		"watch": [
+			"server"
+		]
+	}
 }
