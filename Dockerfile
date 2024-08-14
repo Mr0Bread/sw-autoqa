@@ -5,9 +5,6 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY package-lock.json ./
-COPY server ./server
-COPY tsconfig.json ./
-COPY playwright.config.ts ./
 
 RUN npm install
 RUN npx playwright install
