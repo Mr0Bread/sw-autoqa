@@ -6,3 +6,4 @@ services:
       file: docker-compose.base.yml
     environment:
       - MODE=production
+    command: npm run start

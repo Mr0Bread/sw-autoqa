@@ -6,4 +6,16 @@ services:
       file: docker-compose.base.yml
     environment:
       - MODE=development
+    volumes:
+      - ./server:/usr/src/app/server
+      - ./var:/usr/src/app/var
+      - ./playwright-report:/usr/src/app/playwright-report
+      - ./reports:/usr/src/app/reports
+      - ./test-results:/usr/src/app/test-results
+      - ./biome.json:/usr/src/app/biome.json
+      - ./package.json:/usr/src/app/package.json
+      - ./package-lock.json:/usr/src/app/package-lock.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+      - ./playwright.config.ts:/usr/src/app/playwright.config.ts
+    command: npm run watch
 
