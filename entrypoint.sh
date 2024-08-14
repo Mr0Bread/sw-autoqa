@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # CHeck if mode is set
 if [ -z "$MODE" ]; then
   echo "MODE environment variable is not set"
