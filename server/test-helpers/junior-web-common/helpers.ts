@@ -5,6 +5,7 @@ export async function deleteProducts(page: Page) {
 
 	const isProductPresent = await page
 		.locator('input[type="checkbox"]')
+		.first()
 		.isVisible({ timeout: 5000 });
 
 	if (!isProductPresent) {
