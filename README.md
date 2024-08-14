@@ -3,6 +3,7 @@ This is the web application used by Scandiweb team to test the submitted applica
 
 ## Table of Contents
 - [Getting Started](#getting-started)
+- [Tech stack](#tech-stack)
 - [File structure](#file-structure)
 
 ## Getting Started
@@ -23,6 +24,11 @@ make up
 It will build the docker image and start the application in dev mode.
 The application will be available at http://localhost:8080
 
+## Development guidelines
+- Run `make up` to start the application in dev mode. It will build the image and spin up the container
+- If any changes are made to source code, app will be restarted automatically
+- You can run tests natively, but make sure to install all dependencies locally since `node_modules` are not connected through volume
+
 ## Tech stack
 The application is built using the following technologies:
 - [Node.js](https://nodejs.org/en/) - used for runtime
@@ -34,19 +40,16 @@ The application is built using the following technologies:
 - [Fastify](https://www.fastify.io/) - used for server
 - [Piscina](https://github.com/piscinajs/piscina) - used for running tests in separate thread
 - [Biome](https://biomejs.dev/) - used for linting and formatting
+- [tsx](https://tsx.is/) - used to run server in both dev and prod modes
 
 ## File structure
 At the root of the project you will find the following files:
 - docker-compose.base.yml - base docker-compose file containing common configuration of service
 - docker-compose.dev.yml and docker-compose.prod.yml - docker-compose files for dev and prod environments
-- Dockerfile - dockerfile used to build the docker image
-- package.json - package.json file
-- package-lock.json - package-lock.json file
-- tsconfig.json - TypeScript configuration file
-- playwright.config.ts - playwright configuration file
+- playwright.config.ts - Testing framework configuration file
 - tailwind.config.ts - tailwind configuration file
 - biome.json - biome configuration file
-- recreate.sh - script to recreate the docker image. Used on server by cron to recreate service once in a while
+- recreate.sh - script to recreate the docker containers. Used on server by cron to recreate service once in a while
 - Makefile - contains set of commands to build and run the application in different modes
 - entrypoint.sh - shell script that is executed when the container is started
 - server - directory containing the application code
@@ -60,9 +63,6 @@ The server directory contains the application code.
 
 Contains the following files/directories:
 - public - directory containing all the public files
-  - assets - directory containing the public assets
-  - index.html - the main html file
-  - error.html - the error html file. Not used currently
 - tests - directory containing the tests
   - junior-web-required - directory containing required junior web tests
   - junior-web-advanced - directory containing optional advanced junior web tests
