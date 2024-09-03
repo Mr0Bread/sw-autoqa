@@ -89,8 +89,6 @@ test("can add to cart", async ({ page }) => {
 
 	await page.getByText("ADD TO CART").click();
 
-	await page.locator('[data-testid="cart-btn"]').click();
-
 	await expect(page.locator('[data-testid="cart-overlay"]')).toBeVisible({
 		timeout: 10000,
 	});
